@@ -1,6 +1,7 @@
 [submodule "spirv-cross"]
 	path = external/SPIRV-Cross
-	url = ../SDL_shadercross.git
+	url = ../SPIRV-Cross.git
+	branch = stelumi/fix-msvc-warning-returns
 [submodule "spirv-headers"]
 	path = external/SPIRV-Headers
 	url = https://github.com/KhronosGroup/SPIRV-Headers.git
