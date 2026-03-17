@@ -858,6 +858,19 @@ static int parse_version_number(const char* str)
     return -1;
 }
 
+static bool SDL_ShaderCross_INTERNAL_ConvertSizeToUint32(
+    size_t value,
+    Uint32 *output,
+    const char *name
+) {
+    if (value > SDL_MAX_UINT32) {
+        return SDL_SetError("%s count exceeds Uint32 range", name);
+    }
+
+    *output = (Uint32)value;
+    return true;
+}
+
 typedef struct SPIRVTranspileContext {
     spvc_context context;
     const char *translated_source;
@@ -1914,12 +1927,30 @@ SDL_ShaderCross_GraphicsShaderMetadata * SDL_ShaderCross_ReflectGraphicsSPIRV(
     SDL_ShaderCross_INTERNAL_GetIOVars(compiler, reflected_resources, num_outputs, allocMetadata->outputs, allocMemory + offset_outputnames);
     spvc_context_destroy(context);
 
-    allocMetadata->resource_info.num_samplers = num_texture_samplers;
-    allocMetadata->resource_info.num_storage_textures = num_storage_textures;
-    allocMetadata->resource_info.num_storage_buffers = num_storage_buffers;
-    allocMetadata->resource_info.num_uniform_buffers = num_uniform_buffers;
-    allocMetadata->num_inputs = num_inputs;
-    allocMetadata->num_outputs = num_outputs;
+    if (!SDL_ShaderCross_INTERNAL_ConvertSizeToUint32(num_texture_samplers, &allocMetadata->resource_info.num_samplers, "sampler")) {
+        SDL_free(allocMemory);
+        return NULL;
+    }
+    if (!SDL_ShaderCross_INTERNAL_ConvertSizeToUint32(num_storage_textures, &allocMetadata->resource_info.num_storage_textures, "storage texture")) {
+        SDL_free(allocMemory);
+        return NULL;
+    }
+    if (!SDL_ShaderCross_INTERNAL_ConvertSizeToUint32(num_storage_buffers, &allocMetadata->resource_info.num_storage_buffers, "storage buffer")) {
+        SDL_free(allocMemory);
+        return NULL;
+    }
+    if (!SDL_ShaderCross_INTERNAL_ConvertSizeToUint32(num_uniform_buffers, &allocMetadata->resource_info.num_uniform_buffers, "uniform buffer")) {
+        SDL_free(allocMemory);
+        return NULL;
+    }
+    if (!SDL_ShaderCross_INTERNAL_ConvertSizeToUint32(num_inputs, &allocMetadata->num_inputs, "input")) {
+        SDL_free(allocMemory);
+        return NULL;
+    }
+    if (!SDL_ShaderCross_INTERNAL_ConvertSizeToUint32(num_outputs, &allocMetadata->num_outputs, "output")) {
+        SDL_free(allocMemory);
+        return NULL;
+    }
 
     return allocMetadata;
 }
@@ -2140,12 +2171,30 @@ SDL_ShaderCross_ComputePipelineMetadata * SDL_ShaderCross_ReflectComputeSPIRV(
 
     spvc_context_destroy(context);
 
-    metadata->num_samplers = num_texture_samplers;
-    metadata->num_readonly_storage_textures = num_readonly_storage_textures;
-    metadata->num_readonly_storage_buffers = num_readonly_storage_buffers;
-    metadata->num_readwrite_storage_textures = num_readwrite_storage_textures;
-    metadata->num_readwrite_storage_buffers = num_readwrite_storage_buffers;
-    metadata->num_uniform_buffers = num_uniform_buffers;
+    if (!SDL_ShaderCross_INTERNAL_ConvertSizeToUint32(num_texture_samplers, &metadata->num_samplers, "sampler")) {
+        SDL_free(metadata);
+        return NULL;
+    }
+    if (!SDL_ShaderCross_INTERNAL_ConvertSizeToUint32(num_readonly_storage_textures, &metadata->num_readonly_storage_textures, "readonly storage texture")) {
+        SDL_free(metadata);
+        return NULL;
+    }
+    if (!SDL_ShaderCross_INTERNAL_ConvertSizeToUint32(num_readonly_storage_buffers, &metadata->num_readonly_storage_buffers, "readonly storage buffer")) {
+        SDL_free(metadata);
+        return NULL;
+    }
+    if (!SDL_ShaderCross_INTERNAL_ConvertSizeToUint32(num_readwrite_storage_textures, &metadata->num_readwrite_storage_textures, "readwrite storage texture")) {
+        SDL_free(metadata);
+        return NULL;
+    }
+    if (!SDL_ShaderCross_INTERNAL_ConvertSizeToUint32(num_readwrite_storage_buffers, &metadata->num_readwrite_storage_buffers, "readwrite storage buffer")) {
+        SDL_free(metadata);
+        return NULL;
+    }
+    if (!SDL_ShaderCross_INTERNAL_ConvertSizeToUint32(num_uniform_buffers, &metadata->num_uniform_buffers, "uniform buffer")) {
+        SDL_free(metadata);
+        return NULL;
+    }
     return metadata;
 }
 
