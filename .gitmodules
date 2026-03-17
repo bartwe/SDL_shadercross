@@ -1,7 +1,6 @@
 [submodule "spirv-cross"]
 	path = external/SPIRV-Cross
-	url = https://github.com/KhronosGroup/SPIRV-Cross.git
-	branch = main
+	url = ../SDL_shadercross.git
 [submodule "spirv-headers"]
 	path = external/SPIRV-Headers
 	url = https://github.com/KhronosGroup/SPIRV-Headers.git
