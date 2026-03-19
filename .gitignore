@@ -1,4 +1,5 @@
 build/
+build-dxc/
 /external/DirectXShaderCompiler-binaries
 dxc_linux-build
 dxc_linux-subbuild
