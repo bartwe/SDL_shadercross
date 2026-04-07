@@ -65,6 +65,11 @@
   <PropertyGroup>
     <IncludePath>..\..\SDL\include;..\external\SPIRV-Headers\include\spirv;..\external\SPIRV-Cross;..\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
+  <PropertyGroup>
+    <CodeAnalysisRuleSet />
+    <EnableMicrosoftCodeAnalysis>false</EnableMicrosoftCodeAnalysis>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <Link>
       <AdditionalDependencies>$(IntDir)dxcompiler.lib;delayimp.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -105,6 +110,11 @@
       <Command>lib /nologo /def:"$(ProjectDir)dxcompiler.def" /out:"$(IntDir)dxcompiler.lib" /machine:x64</Command>
       <Message>Generating dxcompiler import library from .def</Message>
     </PreBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <EnablePREfast>false</EnablePREfast>
+    </ClCompile>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
