@@ -13,4 +13,4 @@
 [submodule "DirectXShaderCompiler"]
 	path = external/DirectXShaderCompiler
 	url = https://github.com/bartwe/DirectXShaderCompiler.git
-	branch = v1.9.2602-SDL
+	branch = stelumi/microsoft-dxc-20260927
