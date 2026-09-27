@@ -1,6 +1,6 @@
 [submodule "spirv-cross"]
 	path = external/SPIRV-Cross
-	url = ../SPIRV-Cross.git
+	url = git@lorn:/home/git/stelumi/SPIRV-Cross.git
 	branch = stelumi/fix-msvc-warning-returns
 [submodule "spirv-headers"]
 	path = external/SPIRV-Headers
