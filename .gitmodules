@@ -1,16 +1,16 @@
 [submodule "spirv-cross"]
 	path = external/SPIRV-Cross
-	url = git@lorn:/home/git/stelumi/SPIRV-Cross.git
+	url = git@lorn.stelumi.com:stelumi/SPIRV-Cross.git
 	branch = stelumi/fix-msvc-warning-returns
 [submodule "spirv-headers"]
 	path = external/SPIRV-Headers
-	url = https://github.com/KhronosGroup/SPIRV-Headers.git
+	url = git@lorn.stelumi.com:stelumi/SPIRV-Headers.git
 	branch = main
 [submodule "spirv-tools"]
 	path = external/SPIRV-Tools
-	url = https://github.com/KhronosGroup/SPIRV-Tools.git
+	url = git@lorn.stelumi.com:stelumi/SPIRV-Tools.git
 	branch = main
 [submodule "DirectXShaderCompiler"]
 	path = external/DirectXShaderCompiler
-	url = https://github.com/bartwe/DirectXShaderCompiler.git
+	url = git@lorn.stelumi.com:stelumi/DirectXShaderCompiler.git
 	branch = stelumi/microsoft-dxc-20260927
